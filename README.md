@@ -33,7 +33,7 @@ Extracting all reads to FASTQ:
 * This will search through the target directory recursively.
 
 Gzip while you extract:
-* `fast5_to_fastq.py path/to/fast5_directory | gzip > output.fastq`
+* `fast5_to_fastq.py path/to/fast5_directory | gzip > output.fastq.gz`
 
 Filter based on length:
 * `fast5_to_fastq.py --min_length 10000 path/to/fast5_directory | gzip > output.fastq.gz`
