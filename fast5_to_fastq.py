@@ -18,7 +18,7 @@ def main():
 
     filters = ['file integrity']
     if args.min_length:
-        filters.append('length >= ' + str(args.min_length))
+        filters.append('length >= ' + int_to_str(args.min_length))
     if args.min_mean_qual:
         filters.append('mean quality >= ' + str(args.min_mean_qual))
     if args.min_qual_window:
@@ -34,14 +34,14 @@ def main():
             filtered_fast5_files.append(fast5_file)
             total_bases += length
     fast5_files = filtered_fast5_files
-    print('  ' + str(len(fast5_files)) + ' reads remain after filtering (' +
+    print('  ' + int_to_str(len(fast5_files)) + ' reads remain after filtering (' +
           int_to_str(total_bases) + ' bp)\n', file=sys.stderr)
     if not fast5_files:
         sys.exit()
 
     good_fast5_files = set()
     if args.target_bases:
-        print('Automatically setting a min window quality threshold in order to reach a target '
+        print('Automatically setting a minimum window quality threshold in order to reach a target '
               'of ' + int_to_str(args.target_bases) + ' bp', file=sys.stderr)
         if total_bases < args.target_bases:
             print('Not enough total bases to reach target\n', file=sys.stderr)
