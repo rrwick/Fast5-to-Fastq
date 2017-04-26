@@ -12,13 +12,13 @@ def main():
 
     print('\nLooking for fast5 files in: ' + args.dir, file=sys.stderr)
     fast5_files = find_all_fast5s(args.dir)
-    print('  Found ' + int_to_str(len(fast5_files)) + ' reads!\n', file=sys.stderr)
+    print('  Found ' + int_to_str(len(fast5_files)) + ' reads\n', file=sys.stderr)
     if not fast5_files:
         sys.exit()
 
     filters = ['file integrity']
     if args.min_length:
-        filters.append('length >= ' + int_to_str(args.min_length))
+        filters.append('length >= ' + int_to_str(args.min_length) + ' bp')
     if args.min_mean_qual:
         filters.append('mean quality >= ' + str(args.min_mean_qual))
     if args.min_qual_window:
