@@ -1,0 +1,40 @@
+# Mac stuff
+.DS_Store
+._.DS_Store
+
+# C extensions
+*.so
+*.o
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Test sequences
+tests/*.fasta
+tests/*.fastq
+
+# Distribution and packaging
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+setuptools*.zip
+
+# PyCharm
+.idea/
+
+gh-md-toc
+
+# CMake stuff (used by CLion)
+CMakeLists.txt
+cmake-build-debug/
+cmake-build-default/
