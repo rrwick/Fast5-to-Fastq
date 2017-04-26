@@ -8,7 +8,7 @@ There are a number of other tools which can do this, including [Poretools](http:
   * Read length (`--min_length`)
   * Mean Phred score (`--min_mean_qual`)
   * Minimum mean Phred score in a window, to exclude reads with low quality regions (`--min_qual_window`)
-* Ability to automatically set `--min_qual_window` do get a target number of bases (`--target_bases`)
+* Ability to automatically set `--min_qual_window` to get a target number of bases (`--target_bases`)
 
 
 # Requirements
