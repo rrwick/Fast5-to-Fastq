@@ -44,7 +44,7 @@ def main():
         print('Automatically setting a minimum window quality threshold in order to reach a target '
               'of ' + int_to_str(args.target_bases) + ' bp', file=sys.stderr)
         if total_bases < args.target_bases:
-            print('Not enough total bases to reach target\n', file=sys.stderr)
+            print('  not enough total bases to reach target\n', file=sys.stderr)
         else:
             min_window_quals_and_lengths = sorted([min_window_qual_and_length(f, args.window_size)
                                                    for f in fast5_files], reverse=True)
