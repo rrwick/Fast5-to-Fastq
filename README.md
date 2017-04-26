@@ -17,6 +17,15 @@ There are a number of other tools which can do this, including [Poretools](http:
 * [h5py](https://github.com/h5py/h5py)
 
 
+# Installation
+
+No installation is required - it's all just in one Python script:
+```
+git clone https://github.com/rrwick/Fast5-to-Fastq
+Fast5-to-Fastq/fast5_to_fastq.py --help
+```
+
+
 # Usage
 
 Extracting all reads to FASTQ:
