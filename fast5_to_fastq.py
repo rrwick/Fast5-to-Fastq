@@ -113,8 +113,8 @@ def get_hdf5_names(hdf5_file):
 
 
 def get_mean_score(hdf5_file, basecall_location):
-    q = hdf5_file[basecall_location].value.decode().split('\n')[3]
-    return statistics.mean([ord(c) - 33 for c in q])
+    q = hdf5_file[basecall_location].value.split(b'\n')[3]
+    return statistics.mean([c - 33 for c in q])
 
 
 def get_best_fastq_hdf5_location(hdf5_file, names):
@@ -163,7 +163,7 @@ def get_mean_qscore(quals):
     Returns the mean qscore over the entire length of the qscore string.
     """
     try:
-        return sum([ord(q) - 33 for q in quals]) / len(quals)
+        return sum([q - 33 for q in quals]) / len(quals)
     except ZeroDivisionError:
         return 0.0
 
@@ -172,7 +172,7 @@ def get_min_window_qscore(quals, window_size):
     """
     Returns the minimum mean qscore over a sliding window.
     """
-    quals = [ord(q) - 33 for q in quals]  # covert to numbers
+    quals = [q - 33 for q in quals]  # covert to numbers
     current_window_qscore = statistics.mean(quals[:window_size])
     shift_count = len(quals) - window_size
     if shift_count < 1:
@@ -193,9 +193,9 @@ def check_filters(fast5_file, min_length, min_mean_qual, min_qual_window, window
         names = get_hdf5_names(hdf5_file)
         basecall_location = get_best_fastq_hdf5_location(hdf5_file, names)
         if basecall_location:
-            fastq_str = hdf5_file[basecall_location].value.decode()
+            fastq_str = hdf5_file[basecall_location].value
             try:
-                parts = fastq_str.split('\n')
+                parts = fastq_str.split(b'\n')
                 seq, quals = parts[1], parts[3]
             except IndexError:
                 fastq_str, seq, quals = '', '', ''
@@ -219,9 +219,9 @@ def min_window_qual_and_length(fast5_file, window_size):
         names = get_hdf5_names(hdf5_file)
         basecall_location = get_best_fastq_hdf5_location(hdf5_file, names)
         if basecall_location:
-            fastq_str = hdf5_file[basecall_location].value.decode()
+            fastq_str = hdf5_file[basecall_location].value
             try:
-                parts = fastq_str.split('\n')
+                parts = fastq_str.split(b'\n')
                 seq, quals = parts[1], parts[3]
                 return get_min_window_qscore(quals, window_size), len(seq), fast5_file
             except IndexError:
