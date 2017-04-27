@@ -182,7 +182,8 @@ def get_min_window_qscore(quals, window_size):
         leaving_window = quals[i]
         entering_window = quals[i + window_size]
         current_window_qscore += (entering_window - leaving_window) / window_size
-        min_window_qscore = min(min_window_qscore, current_window_qscore)
+        if current_window_qscore < min_window_qscore:
+            min_window_qscore = current_window_qscore
     return min_window_qscore
 
 
