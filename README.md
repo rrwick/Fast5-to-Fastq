@@ -1,4 +1,4 @@
-# Fast5 to Fastq
+# FAST5 to FASTQ
 
 This is a simple script to extract FASTQ files from FAST5 files.
 
@@ -9,6 +9,8 @@ There are a number of other tools which can do this, including [Poretools](http:
   * Mean Phred score (`--min_mean_qual`)
   * Minimum mean Phred score in a window, to exclude reads with low quality regions (`--min_qual_window`)
 * Ability to automatically set `--min_qual_window` to get a target number of bases (`--target_bases`)
+
+__UPDATE (22 May 2017)__: Since Albacore v1.1, direct to FASTQ basecalling is possible (yay!). I therefore made a version of this script which takes a FASTQ input instead of a FAST5 directory so you can perform the length/quality filters if you did straight-to-FASTQ basecalling. More info [here](#fastq-filtering).
 
 
 # Requirements
@@ -55,16 +57,14 @@ Aim for a target number of bases:
 
 How I (Ryan) like to use it:
 * `fast5_to_fastq.py --min_length 2000 --target_bases 500000000 path/to/fast5_directory | gzip > output.fastq.gz`
-* I mainly use Nanopore reads for bacterial isolate assembly, and anything over 100x depth is probably overkill. So I use `--target_bases` to aim for about 500 Mbp of reads.
+* I mainly use Nanopore reads for bacterial isolate assembly, and anything over 100x depth is probably overkill. So I use `--target_bases` to aim for about 500 Mbp of reads (adjust as necessary for the approximate genome size).
 * Repeat sequences of about 1 kbp are common in bacterial genomes (e.g. insertion sequences), so I use `--min_length` to exclude anything less than 2 kbp. That's large enough that there should be very few reads which are entirely contained within a repeat (which aren't useful for assembly), but small enough that I'm not excluding small plasmid sequences.
 * I'll then pass the output through [Porechop](https://github.com/rrwick/Porechop) to get rid of adapters and split/discard chimeric reads.
 
 
 # FASTQ filtering
 
-Albacore v1.1 and later can basecall directly to FASTQ, which is very nice! I therefore made a new version of this script (`fastq_to_fastq.py`) which takes a FASTQ as input instead of a FAST5 directory. This allows you to perform the various read filters (described above) when you did straight-to-FASTQ basecalling.
-
-The usage is exactly the same as for `fast5_to_fastq.py`, just replace `path/to/fast5_directory` with `path/to/reads.fastq`:
+The `fastq_to_fastq.py` script has the same usage as `fast5_to_fastq.py`, just replace `path/to/fast5_directory` with `path/to/reads.fastq`. For example:
 * `fastq_to_fastq.py --min_length 2000 --target_bases 500000000 path/to/reads.fastq | gzip > output.fastq.gz`
 
 Both `*.fastq` and `*.fastq.gz` should work as input formats.
