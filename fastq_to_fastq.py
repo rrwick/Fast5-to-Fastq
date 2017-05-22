@@ -66,10 +66,10 @@ def main():
 
     print('Printing FASTQs to stdout', file=sys.stderr)
     for name, seq, quals in filtered_reads:
-        print(b'@' + name)
-        print(seq)
-        print(b'+')
-        print(quals, flush=True)
+        print('@' + name.decode())
+        print(seq.decode())
+        print('+')
+        print(quals.decode(), flush=True)
     print('  Done!\n', file=sys.stderr)
 
 
