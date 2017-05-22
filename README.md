@@ -28,7 +28,7 @@ Fast5-to-Fastq/fast5_to_fastq.py --help
 
 # Usage
 
-Extracting all reads to FASTQ:
+Extracting all reads from FAST5 to FASTQ:
 * `fast5_to_fastq.py path/to/fast5_directory > output.fastq`
 * This will search through the target directory recursively.
 
@@ -56,8 +56,18 @@ Aim for a target number of bases:
 How I (Ryan) like to use it:
 * `fast5_to_fastq.py --min_length 2000 --target_bases 500000000 path/to/fast5_directory | gzip > output.fastq.gz`
 * I mainly use Nanopore reads for bacterial isolate assembly, and anything over 100x depth is probably overkill. So I use `--target_bases` to aim for about 500 Mbp of reads.
-* Repeat sequences of about 1 kbp are common in bacterial genomes (e.g. insertion sequences), so I use `--min_length` to exclude anything less than 2 kbp. That's large enough that there should be very few reads which are entirely contained within a repeat (and therefore not useful for assembly), but small enough that I'm not excluding small plasmid sequences.
+* Repeat sequences of about 1 kbp are common in bacterial genomes (e.g. insertion sequences), so I use `--min_length` to exclude anything less than 2 kbp. That's large enough that there should be very few reads which are entirely contained within a repeat (which aren't useful for assembly), but small enough that I'm not excluding small plasmid sequences.
 * I'll then pass the output through [Porechop](https://github.com/rrwick/Porechop) to get rid of adapters and split/discard chimeric reads.
+
+
+# FASTQ filtering
+
+Albacore v1.1 and later can basecall directly to FASTQ, which is very nice! I therefore made a new version of this script (`fastq_to_fastq.py`) which takes a FASTQ as input instead of a FAST5 directory. This allows you to perform the various read filters (described above) when you did straight-to-FASTQ basecalling.
+
+The usage is exactly the same as for `fast5_to_fastq.py`, just replace `path/to/fast5_directory` with `path/to/reads.fastq`:
+* `fastq_to_fastq.py --min_length 2000 --target_bases 500000000 path/to/reads.fastq | gzip > output.fastq.gz`
+
+Both `*.fastq` and `*.fastq.gz` should work as input formats.
 
 
 # License
