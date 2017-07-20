@@ -15,22 +15,30 @@ def main():
     if not fast5_files:
         sys.exit()
 
+    print('Checking file integrity', file=sys.stderr, end='')
     good_fast5_count = 0
     bad_fast5_count = 0
+    last_read_good = True
     for fast5_file in fast5_files:
         try:
             hdf5_file = h5py.File(fast5_file, 'r')
             get_hdf5_names(hdf5_file)
             good_fast5_count += 1
+            last_read_good = True
             if good_fast5_count % 100 == 0:
                 print('.', file=sys.stderr, end='', flush=True)
         except (IOError, RuntimeError):
             bad_fast5_count += 1
+            if last_read_good:
+                print('', file=sys.stderr, end='', flush=True)
             print(fast5_file)
+            last_read_good = False
 
     print('\nResults:', file=sys.stderr)
-    print('  ' + int_to_str(good_fast5_count) + ' good fast5 files', file=sys.stderr)
-    print('  ' + int_to_str(bad_fast5_count) + ' bad fast5 files', file=sys.stderr)
+    print('  ' + int_to_str(good_fast5_count) +
+          ' good fast5 file' + ('' if good_fast5_count == 1 else 's'), file=sys.stderr)
+    print('  ' + int_to_str(bad_fast5_count) +
+          ' bad fast5 file' + ('' if good_fast5_count == 1 else 's'), file=sys.stderr)
 
 
 def get_arguments():
