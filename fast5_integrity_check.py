@@ -34,7 +34,7 @@ def main():
             print(fast5_file)
             last_read_good = False
 
-    print('\nResults:', file=sys.stderr)
+    print('\n\nResults:', file=sys.stderr)
     print('  ' + int_to_str(good_fast5_count) +
           ' good fast5 file' + ('' if good_fast5_count == 1 else 's'), file=sys.stderr)
     print('  ' + int_to_str(bad_fast5_count) +
