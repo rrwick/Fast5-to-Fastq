@@ -30,7 +30,7 @@ def main():
         except (IOError, RuntimeError):
             bad_fast5_count += 1
             if last_read_good:
-                print('', file=sys.stderr, end='', flush=True)
+                print('', file=sys.stderr, flush=True)
             print(fast5_file)
             last_read_good = False
 
@@ -38,7 +38,7 @@ def main():
     print('  ' + int_to_str(good_fast5_count) +
           ' good fast5 file' + ('' if good_fast5_count == 1 else 's'), file=sys.stderr)
     print('  ' + int_to_str(bad_fast5_count) +
-          ' bad fast5 file' + ('' if good_fast5_count == 1 else 's'), file=sys.stderr)
+          ' bad fast5 file' + ('' if bad_fast5_count == 1 else 's'), file=sys.stderr)
 
 
 def get_arguments():
