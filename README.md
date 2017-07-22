@@ -70,6 +70,16 @@ The `fastq_to_fastq.py` script has the same usage as `fast5_to_fastq.py`, just r
 Both `*.fastq` and `*.fastq.gz` should work as input formats.
 
 
+# FAST5 integrity check
+
+I ran into some annoying crashes caused by corrupt FAST5 files, so I made the `fast5_integrity_check.py` tool to find these.
+
+It only takes one argument: the directory to check (searched recursively):<br>
+`fast5_integrity_check.py path/to/fast5_directory`
+
+It prints the name and path for bad FAST5 files to stdout and some progress info to stderr.
+
+
 # License
 
 [GNU General Public License, version 3](https://www.gnu.org/licenses/gpl-3.0.html)
