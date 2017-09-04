@@ -1,3 +1,11 @@
+# This tool is deprecated!
+
+Albacore (Oxford Nanopore's basecaller) can basecall directly to FASTQ, which makes FAST5 to FASTQ conversion much less relevant. Also, I have since written [Filtlong](https://github.com/rrwick/Filtlong), which does more sophisticated long read filtering than these scripts.
+
+The current recommendation is therefore to basecall directly to FASTQ (or use some other tool to extract FASTQ reads from FAST5 files), trim with [Porechop](https://github.com/rrwick/Porechop) and then filter with [Filtlong](https://github.com/rrwick/Filtlong). If you're still interested in using these scripts, the original README follows below:
+
+
+
 # FAST5 to FASTQ
 
 This is a simple script to extract FASTQ files from FAST5 files.
